@@ -1,3 +1,5 @@
+cyres/src/cyres.cpp
+
 *.py[cod]
 
 # C extensions

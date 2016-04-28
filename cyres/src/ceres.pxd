@@ -4,7 +4,6 @@ from libcpp.string cimport string
 from libc.stdint cimport uint8_t, uint16_t, uint32_t, uint64_t
 
 cdef extern from "types.h" namespace "ceres":
-    ctypedef short int16
     ctypedef int int32
     ctypedef enum Ownership:
         DO_NOT_TAKE_OWNERSHIP
@@ -278,12 +277,12 @@ cdef extern from "types.h" namespace "ceres":
         FORWARD
 
 
-cdef extern from "ordered_groups.h" namespace "ceres":
+cdef extern from "ceres/ordered_groups.h" namespace "ceres":
     cdef cppclass OrderedGroups[T]:
         pass
     ctypedef OrderedGroups[double*] ParameterBlockOrdering
 
-cdef extern from "iteration_callback.h" namespace "ceres":
+cdef extern from "ceres/iteration_callback.h" namespace "ceres":
     cdef struct IterationSummary:
         IterationSummary()
 
@@ -370,7 +369,7 @@ cdef extern from "iteration_callback.h" namespace "ceres":
     cdef cppclass IterationCallback:
         CallbackReturnType operator()(const IterationSummary& summary)
 
-cdef extern from "crs_matrix.h" namespace "ceres":
+cdef extern from "ceres/crs_matrix.h" namespace "ceres":
     ctypedef struct CRSMatrix:
         CRSMatrix()
 
@@ -392,7 +391,7 @@ cdef extern from "local_parameterization.h" namespace "ceres":
 
         LocalSize() const
 
-cdef extern from "problem.h" namespace "ceres::internal":
+cdef extern from "ceres/problem.h" namespace "ceres::internal":
 
     cdef cppclass Preprocessor:
         pass
@@ -437,11 +436,11 @@ cdef extern from "cost_function.h" namespace "ceres":
                       double* residuals,
                       double** jacobians) const
 
-        const vector[int16]& parameter_block_sizes() const
+        const vector[int32]& parameter_block_sizes() const
 
         int num_residuals() const
 
-cdef extern from "solver.h" namespace "ceres::Solver":
+cdef extern from "ceres/solver.h" namespace "ceres::Solver":
     cdef cppclass SolverOptions "ceres::Solver::Options":
         MinimizerType minimizer_type
 
@@ -962,7 +961,7 @@ cdef extern from "solver.h" namespace "ceres":
                 Problem* problem,
                 Summary* summary)
 
-cdef extern from "problem.h" namespace "ceres::Problem":
+cdef extern from "ceres/problem.h" namespace "ceres::Problem":
 
     ctypedef ResidualBlock* ResidualBlockId
 
